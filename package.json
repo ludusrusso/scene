@@ -18,6 +18,7 @@
     "ws": "^7.5.6"
   },
   "devDependencies": {
+    "@tailwindcss/jit": "^0.1.18",
     "@types/react": "^17.0.36",
     "autoprefixer": "^10.4.0",
     "eslint": "7.32.0",
