@@ -12,7 +12,7 @@ const Scene = styled.div`
 
 export default function Home() {
   return (
-    <Scene>
+    <Scene className="bg-gray-300">
       <Main></Main>
       <Footer />
     </Scene>
