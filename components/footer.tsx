@@ -11,7 +11,7 @@ export const Footer = () => {
       <div>
         <h2 className="text-gray-200 text-4xl">@ludusrusso</h2>
         <p className="text-gray-500 mt-4">
-          Backend ticket generation con <strong>Blitzjs</strong>
+          Fullstack dev con<strong> Next</strong> e <strong>TRPC</strong>
         </p>
         <p className="text-gray-400 mt-4 text-xl">
           con <strong>Giuseppe Funicello</strong>{" "}
