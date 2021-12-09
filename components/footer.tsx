@@ -11,10 +11,10 @@ export const Footer = () => {
       <div>
         <h2 className="text-gray-200 text-4xl">@ludusrusso</h2>
         <p className="text-gray-500 mt-4">
-          Fullstack dev con<strong> Next</strong> e <strong>TRPC</strong>
+          Migriamo su<strong> Blitz.js</strong>
         </p>
         <p className="text-gray-400 mt-4 text-xl">
-          con <strong>Giuseppe Funicello</strong>{" "}
+          con <strong>Gerson Enriquez Cruz</strong>{" "}
         </p>
       </div>
       <Chat />
