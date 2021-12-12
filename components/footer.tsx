@@ -12,9 +12,11 @@ export const Footer = () => {
       <div>
         <h2 className="text-gray-200 text-4xl">{event.stream}</h2>
         <p className="text-gray-500 mt-4">{event.name}</p>
-        <p className="text-gray-400 mt-4 text-xl">
-          con <strong>{event.guest.name}</strong>{" "}
-        </p>
+        {event.guest && (
+          <p className="text-gray-400 mt-4 text-xl">
+            con <strong>{event.guest.name}</strong>{" "}
+          </p>
+        )}
       </div>
       <Chat />
     </FooterStyled>
