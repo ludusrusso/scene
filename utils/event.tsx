@@ -14,7 +14,7 @@ export interface Event {
 export const event: Event = {
   name: (
     <span>
-      Sperimentiamo con <strong>TailwindCSS</strong> per livefun
+      <strong>Twitch</strong> fatto in casa per dev tirchi!
     </span>
   ),
   stream: "livefun.dev",
@@ -22,9 +22,9 @@ export const event: Event = {
     name: "Ludovico Russo",
     image: "/profile.jpeg",
   },
-  // guest: {
-  //   name: "Gerson Enriquez Cruz",
-  //   image: "/gerson.jpg",
-  // },
-  startTime: new Date("2021-12-12 14:00"),
+  guest: {
+    name: "Giuseppe Funicello",
+    image: "/giuppi.jpg",
+  },
+  startTime: new Date("2021-12-13 17:30"),
 };
