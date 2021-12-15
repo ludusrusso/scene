@@ -14,17 +14,17 @@ export interface Event {
 export const event: Event = {
   name: (
     <span>
-      <strong>Twitch</strong> fatto in casa per dev tirchi!
+      Frontend design con <strong>Tailwind</strong> e <strong>Emotions</strong>
     </span>
   ),
-  stream: "livefun.dev",
+  stream: "hackability.dev",
   host: {
     name: "Ludovico Russo",
     image: "/profile.jpeg",
   },
   guest: {
-    name: "Giuseppe Funicello",
-    image: "/giuppi.jpg",
+    name: "Gerson Enriquez Cruz",
+    image: "/gerson.jpg",
   },
-  startTime: new Date("2021-12-13 17:30"),
+  startTime: new Date("2021-15-13 18:00"),
 };
