@@ -26,5 +26,5 @@ export const event: Event = {
     name: "Gerson Enriquez Cruz",
     image: "/gerson.jpg",
   },
-  startTime: new Date("2021-15-13 18:00"),
+  startTime: new Date("2021-12-15 18:00"),
 };
