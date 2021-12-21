@@ -39,6 +39,16 @@ export default function Home() {
               ></Image>
             </div>
           )}
+          {event.guest2 && (
+            <div>
+              <Image
+                width="200"
+                height="200"
+                className="-pl-4"
+                src={event.guest2.image}
+              ></Image>
+            </div>
+          )}
           <div className="flex-grow">
             <span className="text-gray-200 text-[130px] w-[200px] font-bold ml-20">
               {getWaitTime(event.startTime, time)}

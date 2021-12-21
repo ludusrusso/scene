@@ -7,6 +7,7 @@ export interface Event {
   name: JSX.Element;
   host: Person;
   guest?: Person;
+  guest2?: Person;
   startTime: Date;
   stream: string;
 }
@@ -14,17 +15,22 @@ export interface Event {
 export const event: Event = {
   name: (
     <span>
-      Frontend design con <strong>Tailwind</strong> e <strong>Emotions</strong>
+      Implementiamo uno <strong>Smart Contract</strong> per generare{" "}
+      <strong>NFT</strong>
     </span>
   ),
-  stream: "hackability.dev",
+  stream: "LiveFun",
   host: {
     name: "Ludovico Russo",
     image: "/profile.jpeg",
   },
   guest: {
-    name: "Gerson Enriquez Cruz",
-    image: "/gerson.jpg",
+    name: "Giuseppe Funicello",
+    image: "/giuppi.jpg",
   },
-  startTime: new Date("2021-12-15 18:00"),
+  guest2: {
+    name: "Francesco d'Alia",
+    image: "/francesco.jpg",
+  },
+  startTime: new Date("2021-12-21 17:30"),
 };
