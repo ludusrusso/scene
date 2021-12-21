@@ -60,6 +60,9 @@ export default function Home() {
         {event.guest && (
           <p className="text-gray-400 mt-4 text-3xl">
             con <strong>{event.guest.name}</strong>{" "}
+            {event.guest2 && (
+              <span>e {<strong>{event.guest2.name}</strong>}</span>
+            )}
           </p>
         )}
       </div>
