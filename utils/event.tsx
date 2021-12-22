@@ -15,22 +15,22 @@ export interface Event {
 export const event: Event = {
   name: (
     <span>
-      Implementiamo uno <strong>Smart Contract</strong> per generare{" "}
-      <strong>NFT</strong>
+      Creare un form complesso per Hackability con{" "}
+      <strong>react final-form</strong>
     </span>
   ),
-  stream: "LiveFun",
+  stream: "Hackability dev",
   host: {
     name: "Ludovico Russo",
     image: "/profile.jpeg",
   },
   guest: {
-    name: "Giuseppe Funicello",
-    image: "/giuppi.jpg",
+    name: "Gerson Enriquez",
+    image: "/gerson.jpg",
   },
-  guest2: {
-    name: "Francesco d'Alia",
-    image: "/francesco.jpg",
-  },
-  startTime: new Date("2021-12-21 17:30"),
+  // guest2: {
+  //   name: "Francesco d'Alia",
+  //   image: "/francesco.jpg",
+  // },
+  startTime: new Date("2021-12-22 18:00"),
 };
