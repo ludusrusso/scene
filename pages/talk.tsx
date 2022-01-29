@@ -1,6 +1,8 @@
 import styled from "@emotion/styled";
-import React from "react";
 import { Footer } from "../components/footer";
+import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
+import React from "react";
+import { useEpisode } from "../components/episode-provider";
 
 const Main = styled.div``;
 
@@ -10,11 +12,12 @@ const Scene = styled.div`
   grid-template-rows: 1fr auto;
 `;
 
-export default function Home() {
+export default function TalkScene() {
+  const { episode } = useEpisode();
   return (
     <Scene className="bg-gray-300">
       <Main></Main>
-      <Footer />
+      <Footer episode={episode} />
     </Scene>
   );
 }

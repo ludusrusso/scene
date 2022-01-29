@@ -1,12 +1,48 @@
-import { ApolloProvider, useSubscription } from "@apollo/client";
+import {
+  ApolloClient,
+  ApolloProvider,
+  HttpLink,
+  InMemoryCache,
+  split,
+  useSubscription,
+} from "@apollo/client";
+import { WebSocketLink } from "@apollo/client/link/ws";
+import { getMainDefinition } from "@apollo/client/utilities";
 import styled from "@emotion/styled";
 import gql from "graphql-tag";
-import { Fragment, useEffect, useState } from "react";
-import { apolloClient } from "../utils/apollo";
+import { Fragment, useState } from "react";
+
+const wsLink = new WebSocketLink({
+  uri: "wss://api.streamblitz.com/graphql",
+  options: {
+    reconnect: true,
+  },
+});
+
+const httpLink = new HttpLink({
+  uri: "https://api.streamblitz.com/graphql",
+});
+
+const splitLink = split(
+  ({ query }) => {
+    const definition = getMainDefinition(query);
+    return (
+      definition.kind === "OperationDefinition" &&
+      definition.operation === "subscription"
+    );
+  },
+  wsLink,
+  httpLink
+);
+
+export const apolloClient = new ApolloClient({
+  link: splitLink,
+  cache: new InMemoryCache(),
+});
 
 const COMMENTS_SUBSCRIPTION = gql`
-  subscription {
-    message(channel: "ludusrusso") {
+  subscription TwitchChat($channel: String!) {
+    message(channel: $channel) {
       id
       message
       author {
@@ -24,10 +60,17 @@ interface ChatMessage {
 
 const MAX_CHAT_SIZE = 5;
 
-const ChatBase = () => {
+interface ChatProps {
+  twitchChannel: string;
+}
+
+const ChatBase = ({ twitchChannel }: ChatProps) => {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
 
   useSubscription(COMMENTS_SUBSCRIPTION, {
+    variables: {
+      channel: twitchChannel,
+    },
     onSubscriptionData: (data) => {
       const newMsg: ChatMessage = {
         author: data.subscriptionData.data.message.author.username,
@@ -78,10 +121,10 @@ const ChatList = styled.ul`
   }
 `;
 
-const Chat = () => {
+const Chat = (props: ChatProps) => {
   return (
     <ApolloProvider client={apolloClient}>
-      <ChatBase />
+      <ChatBase {...props} />
     </ApolloProvider>
   );
 };

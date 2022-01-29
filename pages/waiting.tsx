@@ -1,7 +1,10 @@
 import styled from "@emotion/styled";
+import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { event } from "../utils/event";
+import { useEpisode } from "../components/episode-provider";
+import { getParticipantImage } from "../utils/participants";
+import { getEpisodeTitle } from "../utils/title";
 
 const Scene = styled.div`
   height: 100vh;
@@ -16,7 +19,8 @@ const ImageCnt = styled.div`
   gap: 20px;
 `;
 
-export default function Home() {
+export default function WaitingScene() {
+  const { episode } = useEpisode();
   const [time, setTime] = useState(new Date());
   useEffect(() => {
     setInterval(() => setTime(new Date()), 1000);
@@ -27,41 +31,40 @@ export default function Home() {
       <div className="h-full grid content-center">
         <ImageCnt className="flex gap-10">
           <div>
-            <Image width="200" height="200" src={event.host.image}></Image>
+            <Image
+              width="200"
+              height="200"
+              src={getParticipantImage(episode.host)}
+              alt={episode.host.name}
+            ></Image>
           </div>
-          {event.guest && (
-            <div>
+          {episode.guests.map(({ guest }) => (
+            <div key={guest.id}>
               <Image
                 width="200"
                 height="200"
                 className="-pl-4"
-                src={event.guest.image}
+                src={getParticipantImage(guest)}
+                alt={guest.name}
               ></Image>
             </div>
-          )}
-          {event.guest2 && (
-            <div>
-              <Image
-                width="200"
-                height="200"
-                className="-pl-4"
-                src={event.guest2.image}
-              ></Image>
-            </div>
-          )}
+          ))}
           <div className="flex-grow">
             <span className="text-gray-200 text-[130px] w-[200px] font-bold ml-20">
-              {getWaitTime(event.startTime, time)}
+              {getWaitTime(episode.scheduledTime, time)}
             </span>
           </div>
         </ImageCnt>
-        <h2 className="text-gray-200 text-8xl">{event.stream}</h2>
-        <p className="text-gray-500 mt-4 text-6xl">{event.name}</p>
-        {event.guest && (
+        <h2 className="text-gray-200 text-8xl">{episode.category}</h2>
+        <div
+          className="text-gray-500 mt-4 text-6xl"
+          dangerouslySetInnerHTML={{ __html: getEpisodeTitle(episode.title) }}
+        ></div>
+        {episode.guests[0] && (
           <p className="text-gray-400 mt-4 text-3xl">
-            con <strong>{event.guest.name}</strong>{" "}
-            {event.guest2 && (
-              <span>e {<strong>{event.guest2.name}</strong>}</span>
+            con <strong>{episode.guests[0].guest.name}</strong>{" "}
+            {episode.guests[1] && (
+              <span>e {<strong>{episode.guests[1].guest.name}</strong>}</span>
             )}
           </p>
         )}
@@ -74,8 +77,10 @@ const padString = (d: string | number) => {
   return `00${d}`.slice(-2);
 };
 
-const getWaitTime = (startTime: Date, time: Date) => {
-  const seconds = Math.trunc((startTime.getTime() - time.getTime()) / 1000);
+const getWaitTime = (startTime: string | Date, time: Date) => {
+  const seconds = Math.trunc(
+    (new Date(startTime).getTime() - time.getTime()) / 1000
+  );
   if (seconds < 0) {
     return <> Arriviamo</>;
   }

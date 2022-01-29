@@ -1,27 +1,35 @@
 import styled from "@emotion/styled";
 import dynamic from "next/dynamic";
-import { event } from "../utils/event";
+import { Episode } from "../utils/getNextEpisode";
+import { getEpisodeTitle } from "../utils/title";
 
 const Chat = dynamic(() => import("./chat"), {
   ssr: false,
 });
 
-export const Footer = () => {
+interface FooterProps {
+  episode: Episode;
+}
+
+export const Footer = ({ episode }: FooterProps) => {
   return (
     <FooterStyled className="bg-gray-900">
       <div>
-        <h2 className="text-gray-200 text-4xl">{event.stream}</h2>
-        <p className="text-gray-500 mt-4">{event.name}</p>
-        {event.guest && (
+        <h2 className="text-gray-200 text-4xl">{episode.category}</h2>
+        <p
+          className="text-gray-500 mt-4"
+          dangerouslySetInnerHTML={{ __html: getEpisodeTitle(episode.title) }}
+        ></p>
+        {episode.guests[0] && (
           <p className="text-gray-400 mt-4 text-xl">
-            con <strong>{event.guest.name}</strong>{" "}
-            {event.guest2 && (
-              <span>e {<strong>{event.guest2.name}</strong>}</span>
+            con <strong>{episode.guests[0].guest.name}</strong>{" "}
+            {episode.guests[1] && (
+              <span>e {<strong>{episode.guests[1].guest.name}</strong>}</span>
             )}
           </p>
         )}
       </div>
-      <Chat />
+      <Chat twitchChannel={episode.twitch} />
     </FooterStyled>
   );
 };
