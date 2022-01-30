@@ -5,8 +5,11 @@ import "../styles/globals.css";
 function MyApp({ Component, pageProps }) {
   const ref = useRef<HTMLAudioElement>();
   useEffect(() => {
-    ref?.current?.play();
-  }, [ref.current]);
+    if (ref.current) {
+      ref?.current?.play();
+    }
+  }, [ref]);
+
   return (
     <EpisodeProvider>
       <audio ref={ref} loop src="/audio.wav" />
