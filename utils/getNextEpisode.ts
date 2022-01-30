@@ -1,6 +1,9 @@
 const url = "https://www.ludusrusso.dev/api/next-episode";
-export const getNextEpisode = async (): Promise<Episode> => {
+export const getNextEpisode = async (): Promise<Episode | null> => {
   const res = await fetch(url);
+  if (!res.ok) {
+    return null;
+  }
   return res.json();
 };
 

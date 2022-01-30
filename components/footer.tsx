@@ -10,7 +10,7 @@ const Chat = dynamic(() => import("./chat"), {
 });
 
 interface FooterProps {
-  episode: Episode;
+  episode: Episode | null;
 }
 
 export const Footer = ({ episode }: FooterProps) => {
@@ -18,27 +18,34 @@ export const Footer = ({ episode }: FooterProps) => {
   const onClicked = (msg: ChatMessage) => {
     setMsg(msg.msg);
   };
+
+  if (!episode) {
+    return (
+      <FooterStyled className="bg-gray-900">
+        <div>
+          <h2 className="text-gray-200 text-4xl">No category</h2>
+          <p className="text-gray-500 mt-4"> No episode </p>
+        </div>
+      </FooterStyled>
+    );
+  }
   return (
     <FooterStyled className="bg-gray-900">
-      {msg ? (
-        <div className="text-4xl font-bold text-white">{msg}</div>
-      ) : (
-        <div>
-          <h2 className="text-gray-200 text-4xl">{episode.category}</h2>
-          <p
-            className="text-gray-500 mt-4"
-            dangerouslySetInnerHTML={{ __html: getEpisodeTitle(episode.title) }}
-          ></p>
-          {episode.guests[0] && (
-            <p className="text-gray-400 mt-4 text-xl">
-              con <strong>{episode.guests[0].guest.name}</strong>{" "}
-              {episode.guests[1] && (
-                <span>e {<strong>{episode.guests[1].guest.name}</strong>}</span>
-              )}
-            </p>
-          )}
-        </div>
-      )}
+      <div>
+        <h2 className="text-gray-200 text-4xl">{episode.category}</h2>
+        <p
+          className="text-gray-500 mt-4"
+          dangerouslySetInnerHTML={{ __html: getEpisodeTitle(episode.title) }}
+        ></p>
+        {episode.guests[0] && (
+          <p className="text-gray-400 mt-4 text-xl">
+            con <strong>{episode.guests[0].guest.name}</strong>{" "}
+            {episode.guests[1] && (
+              <span>e {<strong>{episode.guests[1].guest.name}</strong>}</span>
+            )}
+          </p>
+        )}
+      </div>
       <Chat twitchChannel={episode.twitch} onClicked={onClicked} />
     </FooterStyled>
   );

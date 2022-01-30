@@ -26,6 +26,17 @@ export default function WaitingScene() {
     setInterval(() => setTime(new Date()), 1000);
   }, []);
 
+  if (!episode) {
+    return (
+      <Scene className="bg-gray-800 relative p-[100px]">
+        <div className="h-full grid content-center">
+          <h2 className="text-gray-200 text-8xl">No category</h2>
+          <p className="text-gray-500 mt-4 text-6xl"> No episode</p>
+        </div>
+      </Scene>
+    );
+  }
+
   return (
     <Scene className="bg-gray-800 relative p-[100px]">
       <div className="h-full grid content-center">
