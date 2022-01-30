@@ -53,7 +53,7 @@ const COMMENTS_SUBSCRIPTION = gql`
   }
 `;
 
-interface ChatMessage {
+export interface ChatMessage {
   msg: string;
   author: string;
 }
@@ -62,9 +62,10 @@ const MAX_CHAT_SIZE = 5;
 
 interface ChatProps {
   twitchChannel: string;
+  onClicked: (msg: ChatMessage) => void;
 }
 
-const ChatBase = ({ twitchChannel }: ChatProps) => {
+const ChatBase = ({ twitchChannel, onClicked }: ChatProps) => {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
 
   useSubscription(COMMENTS_SUBSCRIPTION, {
@@ -89,7 +90,7 @@ const ChatBase = ({ twitchChannel }: ChatProps) => {
     <Fragment>
       <ChatList className="h-full overflow-hidden">
         {messages.map((msg, idx) => (
-          <li key={idx}>
+          <li key={idx} onClick={() => onClicked(msg)}>
             <span className="author text-gray-100">{msg.author}</span>
             <span className="msg text-gray-400">{msg.msg}</span>
           </li>
