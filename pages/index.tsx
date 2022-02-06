@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useEpisode } from "../components/episode-provider";

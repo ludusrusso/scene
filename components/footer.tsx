@@ -9,6 +9,10 @@ const Chat = dynamic(() => import("./chat"), {
   ssr: false,
 });
 
+const PinnedMessage = dynamic(() => import("./pin"), {
+  ssr: false,
+});
+
 interface FooterProps {
   episode: Episode | null;
 }
@@ -31,6 +35,7 @@ export const Footer = ({ episode }: FooterProps) => {
   }
   return (
     <FooterStyled className="bg-gray-900">
+      <PinnedMessage />
       <div>
         <h2 className="text-gray-200 text-4xl">{episode.category}</h2>
         <p
@@ -52,6 +57,7 @@ export const Footer = ({ episode }: FooterProps) => {
 };
 
 const FooterStyled = styled.footer`
+  position: relative;
   border-top: 10px solid #ccc;
   height: 200px;
   padding: 20px;
