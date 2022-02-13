@@ -25,6 +25,7 @@ const PinnedMessage = () => {
   const [message, setMessage] = useState<Message | undefined>();
   useSubscription(COMMAND, {
     onSubscriptionData: (data) => {
+      console.log(data);
       const cmd = data.subscriptionData.data.commands;
       if (cmd.__typename === "PinMessage") {
         setMessage({
@@ -63,11 +64,6 @@ const PinnedMessageStyled = styled.footer`
   width: 100%;
 `;
 
-const client = newApolloClientWithWs("https://olg.dev.ludusrusso.space/query");
 export default function PinMessage() {
-  return (
-    <ApolloProvider client={client}>
-      <PinnedMessage />
-    </ApolloProvider>
-  );
+  return <PinnedMessage />;
 }

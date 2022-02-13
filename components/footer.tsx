@@ -4,14 +4,8 @@ import { useState } from "react";
 import { Episode } from "../utils/getNextEpisode";
 import { getEpisodeTitle } from "../utils/title";
 import type { ChatMessage } from "./chat";
-
-const Chat = dynamic(() => import("./chat"), {
-  ssr: false,
-});
-
-const PinnedMessage = dynamic(() => import("./pin"), {
-  ssr: false,
-});
+import Chat from "./chat";
+import PinnedMessage from "./pin";
 
 interface FooterProps {
   episode: Episode | null;
@@ -26,10 +20,12 @@ export const Footer = ({ episode }: FooterProps) => {
   if (!episode) {
     return (
       <FooterStyled className="bg-gray-900">
+        <PinnedMessage />
         <div>
           <h2 className="text-gray-200 text-4xl">No category</h2>
           <p className="text-gray-500 mt-4"> No episode </p>
         </div>
+        <Chat twitchChannel={"fextralife"} onClicked={onClicked} />
       </FooterStyled>
     );
   }
@@ -51,7 +47,7 @@ export const Footer = ({ episode }: FooterProps) => {
           </p>
         )}
       </div>
-      <Chat twitchChannel={episode.twitch} onClicked={onClicked} />
+      <Chat twitchChannel={"fextralife"} onClicked={onClicked} />
     </FooterStyled>
   );
 };

@@ -6,13 +6,9 @@ import { newApolloClientWithWs } from "../apollo";
 
 const COMMENTS_SUBSCRIPTION = gql`
   subscription TwitchChat($channel: String!) {
-    message(channel: $channel) {
-      id
-      message
-      author {
-        username
-        roles
-      }
+    message: twitchChat(channel: $channel) {
+      message: msg
+      author
     }
   }
 `;
@@ -38,7 +34,7 @@ const ChatBase = ({ twitchChannel, onClicked }: ChatProps) => {
     },
     onSubscriptionData: (data) => {
       const newMsg: ChatMessage = {
-        author: data.subscriptionData.data.message.author.username,
+        author: data.subscriptionData.data.message.author,
         msg: data.subscriptionData.data.message.message,
       };
       setMessages((msgs) => {
@@ -86,14 +82,8 @@ const ChatList = styled.ul`
   }
 `;
 
-const client = newApolloClientWithWs("https://api.streamblitz.com/graphql");
-
 const Chat = (props: ChatProps) => {
-  return (
-    <ApolloProvider client={client}>
-      <ChatBase {...props} />
-    </ApolloProvider>
-  );
+  return <ChatBase {...props} />;
 };
 
 export default Chat;
