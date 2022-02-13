@@ -13,7 +13,7 @@ export default function TalkScene() {
   const { episode } = useEpisode();
 
   return (
-    <Scene className="bg-gray-300">
+    <Scene className="">
       <div />
       <Footer episode={episode} />
     </Scene>
