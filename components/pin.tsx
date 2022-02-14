@@ -1,8 +1,5 @@
-import { ApolloProvider, useSubscription } from "@apollo/client";
 import styled from "@emotion/styled";
-import gql from "graphql-tag";
 import { useState } from "react";
-import { newApolloClientWithWs } from "../apollo";
 import { useCommandSubscription } from "../gql";
 
 interface Message {
@@ -14,7 +11,6 @@ const PinnedMessage = () => {
   const [message, setMessage] = useState<Message | undefined>();
   useCommandSubscription({
     onSubscriptionData: (data) => {
-      console.log(data);
       const cmd = data.subscriptionData.data.commands;
       if (cmd.__typename === "PinMessage") {
         setMessage({
