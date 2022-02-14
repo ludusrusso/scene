@@ -1,0 +1,14 @@
+overwrite: true
+schema: "https://oldg.dev.ludusrusso.space/query"
+documents:
+  - "components/**/*.graphql"
+  - "pages/**/*.graphql"
+generates:
+  gql.tsx:
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-react-apollo"
+  ./graphql.schema.json:
+    plugins:
+      - "introspection"

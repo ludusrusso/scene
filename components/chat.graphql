@@ -1,0 +1,7 @@
+subscription Chat($channel: String!) {
+  twitchChat(channel: $channel) {
+    __typename
+    msg
+    author
+  }
+}

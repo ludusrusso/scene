@@ -3,18 +3,7 @@ import styled from "@emotion/styled";
 import gql from "graphql-tag";
 import { useState } from "react";
 import { newApolloClientWithWs } from "../apollo";
-
-const COMMAND = gql`
-  subscription Commands {
-    commands {
-      __typename
-      ... on PinMessage {
-        msg
-        author
-      }
-    }
-  }
-`;
+import { useCommandSubscription } from "../gql";
 
 interface Message {
   msg: string;
@@ -23,7 +12,7 @@ interface Message {
 
 const PinnedMessage = () => {
   const [message, setMessage] = useState<Message | undefined>();
-  useSubscription(COMMAND, {
+  useCommandSubscription({
     onSubscriptionData: (data) => {
       console.log(data);
       const cmd = data.subscriptionData.data.commands;

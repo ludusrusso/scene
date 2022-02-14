@@ -1,17 +1,7 @@
-import { ApolloProvider, useSubscription } from "@apollo/client";
+import { useSubscription } from "@apollo/client";
 import styled from "@emotion/styled";
-import gql from "graphql-tag";
 import { Fragment, useState } from "react";
-import { newApolloClientWithWs } from "../apollo";
-
-const COMMENTS_SUBSCRIPTION = gql`
-  subscription TwitchChat($channel: String!) {
-    message: twitchChat(channel: $channel) {
-      message: msg
-      author
-    }
-  }
-`;
+import { useChatSubscription } from "../gql";
 
 export interface ChatMessage {
   msg: string;
@@ -28,14 +18,15 @@ interface ChatProps {
 const ChatBase = ({ twitchChannel, onClicked }: ChatProps) => {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
 
-  useSubscription(COMMENTS_SUBSCRIPTION, {
+  useChatSubscription({
     variables: {
       channel: twitchChannel,
     },
     onSubscriptionData: (data) => {
+      const m = data.subscriptionData.data.twitchChat;
       const newMsg: ChatMessage = {
-        author: data.subscriptionData.data.message.author,
-        msg: data.subscriptionData.data.message.message,
+        author: m.author,
+        msg: m.msg,
       };
       setMessages((msgs) => {
         if (msgs.length >= MAX_CHAT_SIZE) {

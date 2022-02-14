@@ -1,0 +1,17 @@
+subscription Command {
+  commands {
+    __typename
+    ... on PinMessage {
+      msg
+      author
+    }
+  }
+}
+
+mutation PinMessage($msg: String!, $author: String!) {
+  pinMessage(msg: $msg, author: $author)
+}
+
+mutation UnPinMessage {
+  unpin
+}

@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import dynamic from "next/dynamic";
 import { useState } from "react";
 import { Episode } from "../utils/getNextEpisode";
 import { getEpisodeTitle } from "../utils/title";
